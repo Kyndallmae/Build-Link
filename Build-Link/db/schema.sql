@@ -12,7 +12,7 @@ USE construction_company_info_management;
 
 -- Create the Users Table
 -- This is like making a table inside the notebook to write down information about people.
--- It has 7 columns, including a unique identifier, username, email, password, name, and contact information.
+-- It has 6 columns, including a unique identifier, username, email, password, name, and contact information.
 CREATE TABLE Users (
     user_id --A unique number for each person.
     INT AUTO_INCREMENT PRIMARY KEY,
@@ -30,7 +30,7 @@ CREATE TABLE Users (
 
 -- Create the Contractors Table
 -- This is like making another table in the notebook to write about companies.
--- It has 5 columns, including a unique identifier, user_id (linked to a person), company name, and address.
+-- It has 4 columns, including a unique identifier, user_id (linked to a person), company name, and address.
 CREATE TABLE Contractors (
     contractor_id --A unique number for each company.
     INT AUTO_INCREMENT PRIMARY KEY,
@@ -60,7 +60,7 @@ CREATE TABLE Subcontractors (
 
 -- Create the Job Listings Table
 -- This is like making a table to list job openings.
--- It has 13 columns, including a unique identifier, contractor_id (linked to a company), title, description, location, skills_required, budget, post_date, status, start_date, and deadline.
+-- It has 11 columns, including a unique identifier, contractor_id (linked to a company), title, description, location, skills_required, budget, post_date, status, start_date, and deadline.
 CREATE TABLE Job_Listings (
     job_id --A unique number for each job.INT AUTO_INCREMENT PRIMARY KEY,
     contractor_id --A number to show which company is offering the job.
@@ -106,7 +106,7 @@ CREATE TABLE Applications (
 
 -- Create the Messages Table
 -- This is like making a table to store messages between people.
--- It has 6 columns, including a unique identifier, sender_id (linked to a user), receiver_id (linked to a user), message_content, and timestamp.
+-- It has 5 columns, including a unique identifier, sender_id (linked to a user), receiver_id (linked to a user), message_content, and timestamp.
 CREATE TABLE Messages (
     message_id --A unique number for each message.
     INT AUTO_INCREMENT PRIMARY KEY,
