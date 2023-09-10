@@ -14,10 +14,11 @@ const PORT = process.env.PORT || 3001;
 // Set up Handlebars.js engine with custom helpers
 const hbs = exphbs.create({ helpers });
 
+// Session configuration
 const sess = {
-  secret: 'Super secret secret',
+  secret: 'Super secret secret', // Replace with your own secret key
   cookie: {
-    maxAge: 300000,
+    maxAge: 300000, // Session expiration time (adjust as needed)
     httpOnly: true,
     secure: false,
     sameSite: 'strict',
@@ -25,13 +26,13 @@ const sess = {
   resave: false,
   saveUninitialized: true,
   store: new SequelizeStore({
-    db: sequelize
-  })
+    db: sequelize,
+  }),
 };
 
 app.use(session(sess));
 
-// Inform Express.js on which template engine to use
+// Set the template engine
 app.engine('handlebars', hbs.engine);
 app.set('view engine', 'handlebars');
 
@@ -39,8 +40,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Include application routes
 app.use(routes);
 
+// Sync the Sequelize models with the database and start the server
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log('Now listening on port ' + PORT));
 });

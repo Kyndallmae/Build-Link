@@ -34,4 +34,4 @@ VALUES
 INSERT INTO Messages (sender_id, receiver_id, message_content, timestamp)
 VALUES
     (1, 3, 'Hello Subcontractor One, I have a project for you.', '2023-09-10 10:00:00'),
-    (3, 1, 'Sure, I'm interested. Tell me more.', '2023-09-10 10:15:00');
+    (3, 1, 'Sure, I\'m interested. Tell me more.', '2023-09-10 10:15:00');
