@@ -1,67 +1,27 @@
-const { Model, DataTypes } = require('sequelize');
-const bcrypt = require('bcrypt');
-const sequelize = require('../config/connection');
-
-class User extends Model {
-  checkPassword(loginPw) {
-    return bcrypt.compareSync(loginPw, this.password);
+'use strict';
+const {
+  Model
+} = require('sequelize');
+module.exports = (sequelize, DataTypes) => {
+  class User extends Model {
+    /**
+     * Helper method for defining associations.
+     * This method is not a part of Sequelize lifecycle.
+     * The `models/index` file will call this method automatically.
+     */
+    static associate(models) {
+      // define association here
+    }
   }
-}
-
-User.init(
-  {
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
-    },
-    username: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-    },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true,
-      validate: {
-        isEmail: true,
-      },
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        len: [8],
-      },
-    },
-    name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    contact_info: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-  },
-  {
-    hooks: {
-      beforeCreate: async (newUserData) => {
-        newUserData.password = await bcrypt.hash(newUserData.password, 10);
-        return newUserData;
-      },
-      beforeUpdate: async (updatedUserData) => {
-        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
-        return updatedUserData;
-      },
-    },
+  User.init({
+    username: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING,
+    name: DataTypes.STRING,
+    contact_info: DataTypes.STRING
+  }, {
     sequelize,
-    timestamps: false,
-    freezeTableName: true,
-    underscored: true,
     modelName: 'User',
-  }
-);
-
-module.exports = User;
+  });
+  return User;
+};
