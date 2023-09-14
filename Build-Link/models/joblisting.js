@@ -1,19 +1,14 @@
 'use strict';
-const {
-  Model
-} = require('sequelize');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class JobListing extends Model {
     static associate(models) {
-      JobListing.belongsTo(models.Contractor, {
-        foreignKey: 'contractor_id'
-      });
-      JobListing.hasMany(models.Application, {
-        foreignKey: 'job_id'
-      });
+      JobListing.belongsTo(models.Contractor, { foreignKey: 'contractor_id' });
+      JobListing.hasMany(models.Application, { foreignKey: 'job_id' });
     }
   }
   JobListing.init({
+    job_id: { type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true },
     contractor_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     description: DataTypes.TEXT,
