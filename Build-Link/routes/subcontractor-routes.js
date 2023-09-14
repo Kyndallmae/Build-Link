@@ -1,14 +1,14 @@
-// contractor-routes.js
+// routes/subcontractor-routes.js
 const express = require('express');
 const router = express.Router();
 
-const contractorController = require('./controllers/contractor-controller');
+const subcontractorController = require('../controllers/subcontractor-controller');
 
-// Contractor routes
-router.get('/contractors', contractorController.getAll);
-router.get('/contractors/:id', contractorController.getOne);
-router.post('/contractors', contractorController.create);
-router.put('/contractors/:id', contractorController.update);
-router.delete('/contractors/:id', contractorController.delete);
+// Subcontractor routes
+router.get('/subcontractors', subcontractorController.getAllSubcontractors);
+router.get('/subcontractors/:id', subcontractorController.getSubcontractorById);
+router.post('/subcontractors', subcontractorController.createSubcontractor);
+router.put('/subcontractors/:id', subcontractorController.updateSubcontractor);
+router.delete('/subcontractors/:id', subcontractorController.deleteSubcontractor);
 
 module.exports = router;

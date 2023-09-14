@@ -1,6 +1,7 @@
 // controllers/user-controller.js
 const db = require('../models');
 
+// Fetch all users
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await db.User.findAll();
@@ -10,6 +11,7 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
+// Fetch a user by ID
 exports.getUserById = async (req, res) => {
     try {
         const user = await db.User.findByPk(req.params.id);
@@ -23,6 +25,7 @@ exports.getUserById = async (req, res) => {
     }
 };
 
+// Create a new user
 exports.createUser = async (req, res) => {
     try {
         const newUser = await db.User.create(req.body);
@@ -32,23 +35,35 @@ exports.createUser = async (req, res) => {
     }
 };
 
+// Update an existing user
 exports.updateUser = async (req, res) => {
     try {
-        await db.User.update(req.body, {
+        const updated = await db.User.update(req.body, {
             where: { user_id: req.params.id }
         });
-        res.status(200).json({ message: "User updated successfully" });
+        
+        if (updated) {
+            res.status(200).json({ message: "User updated successfully" });
+        } else {
+            res.status(404).json({ error: "User not found" });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 };
 
+// Delete a user
 exports.deleteUser = async (req, res) => {
     try {
-        await db.User.destroy({
+        const result = await db.User.destroy({
             where: { user_id: req.params.id }
         });
-        res.status(200).json({ message: "User deleted successfully" });
+
+        if (result) {
+            res.status(200).json({ message: "User deleted successfully" });
+        } else {
+            res.status(404).json({ error: "User not found" });
+        }
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
