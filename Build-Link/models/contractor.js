@@ -10,16 +10,39 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      // Define association here
+      Contractor.belongsTo(models.User, { foreignKey: 'user_id', as: 'user' });
     }
   }
+  
   Contractor.init({
-    user_id: DataTypes.INTEGER,
-    company_name: DataTypes.STRING,
-    address: DataTypes.STRING
+    contractor_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'Users', 
+        key: 'user_id'
+      }
+    },
+    company_name: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+    address: {
+      type: DataTypes.STRING,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'Contractor',
+    timestamps: false, 
+    underscored: true 
   });
+  
   return Contractor;
 };
