@@ -2,7 +2,7 @@
 const router = require('express').Router();
 
 // Import user-related routes from 'user-routes.js'
-const userRoutes = require('../routes/user-routes');
+const userRoutes = require('./user-routes');
 
 // Import subcontractor-related routes from 'subcontractor-routes.js'
 const subcontractorRoutes = require('./subcontractor-routes');

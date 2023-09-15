@@ -1,8 +1,10 @@
+require('dotenv').config();
+
 const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
-const routes = require('./controllers');
+const routes = require(path.join(__dirname, './routes'));
 const helpers = require('./utils/helpers');
 
 const sequelize = require('./config/connection');
@@ -15,7 +17,7 @@ const PORT = process.env.PORT || 3001;
 const hbs = exphbs.create({ helpers });
 
 const sess = {
-  secret: 'Super secret secret',
+  secret: process.env.SESSION_SECRET || 'Super secret secret', // It's better to store secrets in environment variables.
   cookie: {
     maxAge: 300000,
     httpOnly: true,
@@ -42,5 +44,5 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(routes);
 
 sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log('Now listening'));
+  app.listen(PORT, () => console.log(`Now listening on PORT: ${PORT}`));
 });
