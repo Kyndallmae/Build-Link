@@ -1,0 +1,46 @@
+** Step 1: Create Database **
+
+/* Drop the database if it exists */
+DROP DATABASE IF EXISTS Build_Link;
+
+/* Create the database */
+CREATE DATABASE Build_Link;
+
+/* Switch to the new database */
+USE Build_Link;
+
+** Step 2: Create Tables (schema.sql) **
+
+** Step 3: Seed Database **
+
+- To seed the database with sample data from `seeds.sql`, open your terminal and navigate to the folder where `seeds.sql` is located.
+
+- In your terminal, use the following command to import data from `seeds.sql`:
+  mysql -u root -p Build_Link < seeds.sql
+
+- Enter your MySQL password when prompted.
+
+** Step 4: Basic MySQL Commands **
+
+- To start MySQL, open your terminal and type:
+  mysql -u root -p
+
+- Enter your MySQL password when prompted.
+
+- To select the Build_Link database:
+  USE Build_Link;
+
+- To see all tables in the database:
+  SHOW TABLES;
+
+- To view the structure of a specific table (e.g., Users table):
+  DESCRIBE Users;
+
+- To insert data into a table (e.g., Users table):
+  INSERT INTO Users (username, email, password, name, contact_info) VALUES ('john_doe', 'john@example.com', 'password123', 'John Doe', '123-456-7890');
+
+- To select data from a table (e.g., Users table):
+  SELECT * FROM Users;
+
+- To exit MySQL, type:
+  exit;
