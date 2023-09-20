@@ -1,48 +1,40 @@
-require('dotenv').config();
-
-const path = require('path');
 const express = require('express');
-const session = require('express-session');
-const exphbs = require('express-handlebars');
-const routes = require(path.join(__dirname, './routes'));
-const helpers = require('./utils/helpers');
-
-const sequelize = require('./config/connection');
-const SequelizeStore = require('connect-session-sequelize')(session.Store);
-
 const app = express();
-const PORT = process.env.PORT || 3001;
 
-// Set up Handlebars.js engine with custom helpers
-const hbs = exphbs.create({ helpers });
-
-const sess = {
-  secret: process.env.SESSION_SECRET || 'Super secret secret', // It's better to store secrets in environment variables.
-  cookie: {
-    maxAge: 300000,
-    httpOnly: true,
-    secure: false,
-    sameSite: 'strict',
-  },
-  resave: false,
-  saveUninitialized: true,
-  store: new SequelizeStore({
-    db: sequelize
-  })
-};
-
-app.use(session(sess));
-
-// Inform Express.js on which template engine to use
-app.engine('handlebars', hbs.engine);
-app.set('view engine', 'handlebars');
-
+// Middlewares, e.g., for parsing JSON:
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(routes);
+// Connect to the database:
+// (You'd typically have a separate function or module for this)
 
-sequelize.sync({ force: false }).then(() => {
-  app.listen(PORT, () => console.log(`Now listening on PORT: ${PORT}`));
+// Set up routes:
+
+// Setting up user routes:
+const userRoutes = require('./routes/userRoutes');
+app.use('/users', userRoutes);
+
+// Setting up subcontractor routes:
+const subcontractorRoutes = require('./routes/subcontractorRoutes');
+app.use('/subcontractors', subcontractorRoutes);
+
+// Setting up contractor routes:
+const contractorRoutes = require('./routes/contractorRoutes');
+app.use('/contractors', contractorRoutes);
+
+// Setting up application routes:
+const applicationRoutes = require('./routes/applicationRoutes');
+app.use('/applications', applicationRoutes);
+
+// Setting up message routes:
+const messageRoutes = require('./routes/messageRoutes');
+app.use('/messages', messageRoutes);
+
+// Setting up job listing routes:
+const jobListingRoutes = require('./routes/jobListingRoutes'); 
+app.use('/job-listings', jobListingRoutes);
+
+// Starting the server:
+const PORT = process.env.PORT || 3001;
+app.listen(PORT, () => {
+    console.log(`Server started on port ${PORT}`);
 });

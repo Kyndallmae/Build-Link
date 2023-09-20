@@ -1,15 +1,16 @@
-const router = require('express').Router();
+const express = require('express');
+const router = express.Router();
 
-const applicationRoutes = require('./application-routes');
-const contractorRoutes = require('./contractor-routes');
-const joblistingRoutes = require('./joblisting-routes');
-const messageRoutes = require('./message-routes');
-const subcontractorRoutes = require('./subcontractor-routes');
-const userRoutes = require('./user-routes');
+const applicationRoutes = require('./applicationRoutes');
+const contractorRoutes = require('./contractorRoutes');
+const jobListingRoutes = require('./jobListingRoutes');
+const messageRoutes = require('./messageRoutes');
+const subcontractorRoutes = require('./subcontractorRoutes');
+const userRoutes = require('./userRoutes');
 
 router.use('/applications', applicationRoutes);
 router.use('/contractors', contractorRoutes);
-router.use('/joblistings', joblistingRoutes);
+router.use('/joblistings', jobListingRoutes);
 router.use('/messages', messageRoutes);
 router.use('/subcontractors', subcontractorRoutes);
 router.use('/users', userRoutes);

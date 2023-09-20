@@ -2,25 +2,22 @@
   "development": {
     "username": "root",
     "password": "hello",
-    "database": "Build_Link",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+    "database": "build_Link",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "test": {
     "username": "root",
     "password": "hello",
-    "database": "Build_Link",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+    "database": "build_Link",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   },
   "production": {
     "username": "root",
     "password": "hello",
-    "database": "Build_Link",
-    "host": "localhost",
-    "dialect": "mysql",
-    "port": 3306
+    "database": "build_Link",
+    "host": "127.0.0.1",
+    "dialect": "mysql"
   }
 }
