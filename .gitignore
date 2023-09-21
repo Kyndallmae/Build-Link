@@ -1,3 +1,8 @@
-node_modules
+# Ignore the 'node_modules' directory because it contains project dependencies.
+node_modules/
+
+# Ignore the '.env' file which stores environment variables.
 .env
+
+# Ignore the '.DS_Store' file, specific to macOS, storing folder metadata.
 .DS_Store

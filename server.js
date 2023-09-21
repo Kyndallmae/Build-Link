@@ -4,9 +4,10 @@ const Sequelize = require('sequelize');
 const session = require('express-session');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
 
-// Loading environment variables
+// Loading environment variables from a .env file
 require('dotenv').config();
 
+// Creating an Express application instance
 const app = express();
 const PORT = process.env.PORT || 3001;
 
@@ -19,9 +20,9 @@ app.use(express.urlencoded({ extended: true }));
 
 // Setting up express-session
 const sess = {
-    secret: process.env.SESSION_SECRET,
+    secret: process.env.SESSION_SECRET, // A secret key for session data encryption
     store: new SequelizeStore({
-        db: sequelize
+        db: sequelize // Using Sequelize to store session data in the database
     }),
     resave: false,
     saveUninitialized: false,
@@ -33,22 +34,33 @@ app.use(session(sess));
 require('./models');
 
 // Setting up routes
-const applicationRoutes = require('./routes/applicationRoutes');
-const contractorRoutes = require('./routes/contractorRoutes');
-const jobListingRoutes = require('./routes/jobListingRoutes');
-const messageRoutes = require('./routes/messageRoutes');
-const subcontractorRoutes = require('./routes/subcontractorRoutes');
-const userRoutes = require('./routes/userRoutes');
 
+// Routes for managing applications
+const applicationRoutes = require('./routes/applicationRoutes');
 app.use('/applications', applicationRoutes);
+
+// Routes for managing contractors
+const contractorRoutes = require('./routes/contractorRoutes');
 app.use('/contractors', contractorRoutes);
+
+// Routes for managing job listings
+const jobListingRoutes = require('./routes/jobListingRoutes');
 app.use('/joblistings', jobListingRoutes);
+
+// Routes for managing messages
+const messageRoutes = require('./routes/messageRoutes');
 app.use('/messages', messageRoutes);
+
+// Routes for managing subcontractors
+const subcontractorRoutes = require('./routes/subcontractorRoutes');
 app.use('/subcontractors', subcontractorRoutes);
+
+// Routes for managing users
+const userRoutes = require('./routes/userRoutes');
 app.use('/users', userRoutes);
 
 // Start the server after a successful database connection
-sequelize.sync({ force: false })  // force: true would drop and recreate tables on every startup
+sequelize.sync({ force: false }) // force: true would drop and recreate tables on every startup
     .then(() => {
         app.listen(PORT, () => {
             console.log(`Server is running on port ${PORT}`);
@@ -58,4 +70,5 @@ sequelize.sync({ force: false })  // force: true would drop and recreate tables 
         console.error("Unable to connect to the database:", err);
     });
 
+// Exporting the Express app to be used elsewhere
 module.exports = app;
