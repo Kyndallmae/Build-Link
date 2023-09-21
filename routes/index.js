@@ -1,18 +1,23 @@
 const express = require('express');
-const router = express.Router();
+const app = express();
 
-const applicationRoutes = require('./applicationRoutes');
-const contractorRoutes = require('./contractorRoutes');
-const jobListingRoutes = require('./jobListingRoutes');
-const messageRoutes = require('./messageRoutes');
-const subcontractorRoutes = require('./subcontractorRoutes');
-const userRoutes = require('./userRoutes');
+const applicationRoutes = require('./routes/applicationRoutes');
+const contractorRoutes = require('./routes/contractorRoutes');
+const jobListingRoutes = require('./routes/jobListingRoutes');
+const messageRoutes = require('./routes/messageRoutes');
+const subcontractorRoutes = require('./routes/subcontractorRoutes');
+const userRoutes = require('./routes/userRoutes');
 
-router.use('/applications', applicationRoutes);
-router.use('/contractors', contractorRoutes);
-router.use('/joblistings', jobListingRoutes);
-router.use('/messages', messageRoutes);
-router.use('/subcontractors', subcontractorRoutes);
-router.use('/users', userRoutes);
+app.use('/applications', applicationRoutes);
+app.use('/contractors', contractorRoutes);
+app.use('/joblistings', jobListingRoutes);
+app.use('/messages', messageRoutes);
+app.use('/subcontractors', subcontractorRoutes);
+app.use('/users', userRoutes);
 
-module.exports = router;
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+});
+
+module.exports = app;
