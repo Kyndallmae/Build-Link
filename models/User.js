@@ -1,49 +1,66 @@
-'use strict';
-
+// Import necessary modules
 const { Model, DataTypes } = require('sequelize');
+const bcrypt = require('bcrypt');
+const sequelize = require('../config/connection');
 
-module.exports = (sequelize, DataTypes) => {
-    class User extends Model {
-        static associate(models) {
-            // User has one contractor profile
-            this.hasOne(models.Contractor, {
-                foreignKey: 'user_id',
-                onDelete: 'CASCADE'
-            });
+// Define the User model class that extends Sequelize's Model class
+class User extends Model {
+  // Method to check if a provided password matches the stored password
+  checkPassword(loginPw) {
+    return bcrypt.compareSync(loginPw, this.password);
+  }
+}
 
-            // User has one subcontractor profile
-            this.hasOne(models.Subcontractor, {
-                foreignKey: 'user_id',
-                onDelete: 'CASCADE'
-            });
+// Initialize the User model with its fields and configurations
+User.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    username: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true, // Ensure that usernames are unique
+    },
+    email: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      unique: true, // Ensure that email addresses are unique
+      validate: {
+        isEmail: true, // Validate that the email field follows the email format
+      },
+    },
+    password: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        len: [8], // Validate that passwords are at least 8 characters long
+      },
+    },
+  },
+  {
+    hooks: {
+      beforeCreate: async (newUserData) => {
+        // Hash the password before creating a new user
+        newUserData.password = await bcrypt.hash(newUserData.password, 10);
+        return newUserData;
+      },
+      beforeUpdate: async (updatedUserData) => {
+        // Hash the password before updating the user's password
+        updatedUserData.password = await bcrypt.hash(updatedUserData.password, 10);
+        return updatedUserData;
+      },
+    },
+    sequelize,
+    timestamps: false,
+    freezeTableName: true,
+    underscored: true,
+    modelName: 'user',
+  }
+);
 
-            // User can send multiple messages
-            this.hasMany(models.Message, {
-                foreignKey: 'sender_id'
-            });
-
-            // User can receive multiple messages
-            this.hasMany(models.Message, {
-                foreignKey: 'receiver_id'
-            });
-        }
-    }
-
-    User.init({
-        user_id: {
-            type: DataTypes.INTEGER,
-            primaryKey: true,
-            autoIncrement: true
-        },
-        username: DataTypes.STRING,
-        email: DataTypes.STRING,
-        name: DataTypes.STRING,
-        contact_info: DataTypes.TEXT,
-        password: DataTypes.STRING
-    }, {
-        sequelize,
-        modelName: 'User',
-    });
-
-    return User;
-};
+// Export the User model
+module.exports = User;

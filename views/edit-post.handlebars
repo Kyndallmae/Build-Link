@@ -1,0 +1,34 @@
+<div class='text-center'>
+  <!-- Edit Form -->
+  <form id='edit-post-form'>
+    <div class='form-group'>
+      <label for='edit-post-title'>Job Title:</label>
+      <input
+        id='edit-post-title'
+        class='form-input'
+        type='text'
+        value='{{post.title}}'
+      />
+    </div>
+    <div class='form-group'>
+      <label for='edit-post-content'>Description:</label>
+      <textarea
+        id='edit-post-content'
+        class='form-input'
+      >{{post.content}}</textarea>
+    </div>
+    <div class='form-group'>
+      <label for='edit-post-location'>Address:</label>
+      <textarea
+        id='edit-post-location'
+        class='form-input'
+      >{{post.location}}</textarea>
+    </div>
+    <div class='form-group'>
+      <button type='submit' class='btn btn-primary'>Save</button>
+    </div>
+  </form>
+</div>
+
+<!-- Include the client-side JavaScript for editing posts -->
+<script src='/js/edit-post.js'></script>

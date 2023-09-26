@@ -1,47 +1,56 @@
-<html lang='en'>
+<!DOCTYPE html>
+<html lang="en">
 
-  <head>
-    <meta charset='UTF-8' />
-    <meta name='viewport' content='width=device-width, initial-scale=1.0' />
-    <title>Fund My Project!</title>
-    <link rel='stylesheet' href='/css/jass.css' />
-    <link rel='stylesheet' href='/css/style.css' />
-  </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Link</title>
+    <link rel="stylesheet" href="/css/jass.css">
+    <link rel="stylesheet" href="/css/style.css">
+</head>
 
-  <body>
-    <div class='flex-column justify-space-around'>
-      <header class='display-flex justify-space-between align-center p-2'>
+<body class="site">
+    <header class="header">
         <h1>
-          <span role='img' aria-label='money'>💸</span>
-          <a href='/'>Fund My Project!</a>
+            {{!-- <span role="img" aria-label="construction">🏗️</span> --}}
+            <a href="/"><span id="logo">BUILD LINK</span></a>
+            <p id="slogan">Making contracting easier</p>
         </h1>
-        <nav>
-          <!-- Conditionally render login or logout links -->
-          {{#if logged_in}}
-            Welcome
-            {{user_name}}
-            |
-            <a href='/profile'>profile</a>
-            |
-            <button class='no-button' id='logout'>logout</button>
-          {{else}}
-            <a href='/login'>login</a>
-          {{/if}}
+        <nav class="nav">
+            {{#if logged_in}}
+            {{!-- Welcome, {{username}} --}}
+            <a href="/">Home</a> |
+            {{!-- <a href="/joblisting">Job Listings</a> | --}}
+            <a href="/profile">Dashboard</a> |
+            {{!-- <a href="/about">About Us</a> |
+            <a href="/contact">Contact Us</a> | --}}
+            <button class="no-button" id="logout">Log out</button>
+            {{else}}
+            <a href="/">Home</a> |
+            <a href="/joblisting">Job Listings</a> |
+            <a href="/about">About Us</a> |
+            <a href="/contact">Contact Us</a> |
+            <a href="/login">Log In/Sign Up</a>            
+            {{/if}}
         </nav>
-      </header>
-      <main class='container container-fluid mt-5'>
+    </header>
+
+    <main class="container container-fluid mt-5">
         <!-- Render the sub layout -->
-        {{{body}}}
-      </main>
-      <footer>
+        {{{body}}}        
+    </main>
 
-      </footer>
-    </div>
+    <footer class="footer">
+        Thank you for visiting!
+        <div id="footer-info">
+            <p>&copy; 2023 Build Link</p>
+        </div>
+    </footer>
 
-    <!-- Render script for logged in users only -->
     {{#if logged_in}}
-      <script src='/js/logout.js'></script>
+    <script src="/js/logout.js"></script>
     {{/if}}
-  </body>
+
+</body>
 
 </html>

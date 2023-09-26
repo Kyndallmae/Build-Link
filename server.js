@@ -1,40 +1,65 @@
+// Import required modules
+const path = require('path');
 const express = require('express');
+const session = require('express-session');
+const exphbs = require('express-handlebars');
+const routes = require('./controllers');
+const helpers = require('./utils/helpers');
+const bodyParser = require('body-parser');
+
+// Import Sequelize and create a connection
+const sequelize = require('./config/connection');
+const SequelizeStore = require('connect-session-sequelize')(session.Store);
+
+// Create an Express.js app
 const app = express();
-
-// Middlewares, e.g., for parsing JSON:
-app.use(express.json());
-
-// Connect to the database:
-// (You'd typically have a separate function or module for this)
-
-// Set up routes:
-
-// Setting up user routes:
-const userRoutes = require('./routes/userRoutes');
-app.use('/users', userRoutes);
-
-// Setting up subcontractor routes:
-const subcontractorRoutes = require('./routes/subcontractorRoutes');
-app.use('/subcontractors', subcontractorRoutes);
-
-// Setting up contractor routes:
-const contractorRoutes = require('./routes/contractorRoutes');
-app.use('/contractors', contractorRoutes);
-
-// Setting up application routes:
-const applicationRoutes = require('./routes/applicationRoutes');
-app.use('/applications', applicationRoutes);
-
-// Setting up message routes:
-const messageRoutes = require('./routes/messageRoutes');
-app.use('/messages', messageRoutes);
-
-// Setting up job listing routes:
-const jobListingRoutes = require('./routes/jobListingRoutes'); 
-app.use('/job-listings', jobListingRoutes);
-
-// Starting the server:
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-    console.log(`Server started on port ${PORT}`);
+
+// Set up Handlebars.js engine with custom helpers
+const hbs = exphbs.create({ helpers });
+
+// Configure session settings
+const sess = {
+  secret: 'Super secret secret',
+  cookie: {
+    maxAge: 300000, // Session duration in milliseconds
+    httpOnly: true,
+    secure: false, // Must set to true in a production environment with HTTPS
+    sameSite: 'strict',
+  },
+  resave: false,
+  saveUninitialized: true,
+  store: new SequelizeStore({
+    db: sequelize, // Use the Sequelize connection for session storage
+  }),
+};
+
+// Use Express.js middleware to enable sessions
+app.use(session(sess));
+
+// Set the template engine to Handlebars
+app.engine('handlebars', hbs.engine);
+app.set('view engine', 'handlebars');
+
+// Parse JSON and URL-encoded data in requests
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Add body-parser middleware for parsing form data
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Use the defined routes
+app.use(routes);
+
+// Add this after your routes
+app.use((req, res) => {
+  res.status(404).send("Not Found");
+});
+
+// Sync Sequelize models with the database and start the server
+sequelize.sync({ force: false }).then(() => {
+  app.listen(PORT, () => console.log('Now listening'));
 });

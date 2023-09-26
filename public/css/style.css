@@ -1,24 +1,417 @@
-header, .project:not(:last-child) {
-  border-bottom: 1px solid #ccc;
+/* Style for the body */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  align-self: center;
+  flex-direction: column;
+  min-height: 100vh;
 }
 
-.no-button {
-  background: none;
-  border: none;
+/* Style for header */
+.header {
+  background-color: #333;
+  color: #fc7f20;
+  padding: 10px 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.header h1 {
+  margin: 0;
   padding: 0;
-  cursor: pointer;
-  color: #1b89bc;
+  font-size: 1.5rem;
+  font-weight: 900;
+}
+
+.header a {
+  color: #fc7f20;
   text-decoration: none;
-  font-size: 100%;
+  margin: 0 10px;
 }
 
-.no-button:hover {
-  color: #065b83;
+/* Style for the slogan */
+#slogan {
+  font-style: italic;
+  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande',
+    'Lucida Sans', Arial, sans-serif;
+  color: #f0f0f0;
+}
+
+/* Style for the logo */
+#logo {
+  background-color: #f0f0f0;
+  padding: 3px 20px;
+  border-radius: 10px 50px 10px 50px;
+  box-shadow: 5px 10px 50px;
+}
+
+/* Style for the logout */
+#logout {
+  background-color: #f0f0f0;
+  text-decoration: none;
+}
+
+#logout:hover {
+  background-color: #fc7f20;
+  text-decoration: none;
+}
+
+/* Style for the nav */
+.nav a {
+  color: #f0f0f0;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.nav a:hover {
+  color: #fc7f20;
   text-decoration: underline;
+  margin: 0 10px;
 }
 
-.dollar-amount {
-  color: #056605;
-  font-weight: bold;
-  margin-left: -5px;
+/* Styles for the Search Forms */
+#search-form {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 5%;
+}
+
+#search-keywords,
+#search-location {
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #333;
+  border-radius: 4px;
+  margin-right: 10px;
+}
+
+#search-keywords {
+  width: 350px;
+}
+
+#search-location {
+  width: 200px;
+}
+
+/* Style for post info */
+.post-info {
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.post-info .date {
+  font-style: italic;
+}
+
+/* .job-listing-container {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.job-title {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.job-info {
+  font-size: 14px;
+  margin-bottom: 10px;
+}
+
+.job-description {
+  font-size: 16px;
+} */
+
+/* Style for container */
+.container {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* Style for textarea form */
+.form-textarea {
+  width: 400px;
+}
+
+/* Style for footer */
+.footer {
+  background-color: #333;
+  color: #fc7f20;
+  text-align: center;
+  padding: 10px 0;
+}
+
+/* Extra Small Smartphones) */
+@media (max-width: 575px) {
+  header {
+    text-align: center;
+  }
+
+  /* Style for container */
+  .container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-top: -3px;
+  }
+
+  .about {
+    margin-top: 20px;
+  }
+
+  /* Styles for the Search Forms */
+  #search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  #search-keywords,
+  #search-location {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  #search-keywords {
+    width: 300px;
+    margin: 5px;
+  }
+
+  #search-location {
+    width: 200px;
+    margin: 5px;
+  }
+
+  /* Styles for job listings */
+  .job-listing-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+
+  .job-listing {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  /* Style job title links */
+  .job-listing h2 a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .job-listing h2 a:hover {
+    color: #fc7f20;
+  }
+}
+
+/* Small (Larger Smartphones and Small Tablets) */
+@media (min-width: 576px) and (max-width: 767px) {
+  header {
+    text-align: center;
+  }
+
+  /* Styles for the Search Forms */
+  #search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  #search-keywords,
+  #search-location {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  #search-keywords {
+    width: 300px;
+    margin: 5px;
+  }
+
+  #search-location {
+    width: 200px;
+  }
+
+  /* Styles for job listings */
+  .job-listing-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+
+  .job-listing {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  /* Style job title links */
+  .job-listing h2 a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .job-listing h2 a:hover {
+    color: #fc7f20;
+  }
+}
+
+/* Medium (Larger Tablets and Small Laptops) */
+@media (min-width: 768px) and (max-width: 991px) {
+  header {
+    text-align: center;
+  }
+
+  /* Styles for the Search Forms */
+  #search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    align-items: center;
+  }
+
+  #search-keywords,
+  #search-location {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  #search-keywords {
+    width: 300px;
+    margin: 5px;
+  }
+
+  #search-location {
+    width: 200px;
+  }
+
+  /* Styles for job listings */
+  .job-listing-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+
+  .job-listing {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  /* Style job title links */
+  .job-listing h2 a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .job-listing h2 a:hover {
+    color: #fc7f20;
+  }
+}
+
+/* Large (Desktops and Larger Laptops) */
+@media (min-width: 992px) and (max-width: 1199px) {
+  header {
+    text-align: center;
+  }
+
+  /* Styles for the Search Forms */
+  #search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  #search-keywords,
+  #search-location {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    margin-right: 10px;
+  }
+
+  #search-keywords {
+    width: 300px;
+    margin: 5px;
+  }
+
+  #search-location {
+    width: 200px;
+  }
+
+  /* Styles for job listings */
+  .job-listing-container {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s;
+  }
+
+  .job-listing {
+    margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: #f9f9f9;
+  }
+
+  /* Style job title links */
+  .job-listing h2 a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+  }
+
+  .job-listing h2 a:hover {
+    color: #fc7f20;
+  }
 }

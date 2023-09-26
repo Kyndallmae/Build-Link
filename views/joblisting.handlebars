@@ -1,0 +1,54 @@
+<div class="container">
+<div class="joblisting-container mt-5">
+  <div class='col-md-12'>
+
+    <form id="search-form" method="GET" action="/search">
+      <input
+        type="text"
+        id="search-keywords"
+        name="keywords"
+        placeholder="Keywords"
+      />
+      <input
+        type="text"
+        id="search-location"
+        name="location"
+        placeholder="Location"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+  </div>
+</div>
+
+<div class="joblisting-container mt-5">
+  <div class='col-md-12'>
+    {{#each posts as |post|}}
+    {{!-- <div class='post-container p-4 border rounded mb-4'> --}}
+      <div class='post-container'>
+        <div class='row mb-4 post'>
+          <div class='col-md-12'>
+            <h2 class='post-title'>
+              <a href='/post/{{post.id}}'>{{post.title}}</a>
+              <div class='post-info'>
+                <span class='post-author'>Posted by {{post.user.username}}</span>
+                <span class='post-date'>on {{format_date post.date_created}}</span>
+              </div>
+            </h2>
+            <p class='post-content'>
+              {{post.content}}
+            </p>            
+          </div>
+        </div>
+      </div>
+    {{!-- </div> --}}
+    {{/each}}
+<!-- "Go Back" button to navigate back to the previous page -->
+  <div class="go-back-button">
+    <a href="javascript:history.go(-1);">Go Back</a>
+  </div>
+  </div>
+</div>
+</div>
+
+
+
